@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NotFound from "./Pages/404";
+import Signup from "./Pages/Signup";
+import Login from "./Pages/Login";
+import Tasks from "./Pages/Tasks";
+import PageLayout from "./Components/PageLayout";
+import CreateNewTasks from "./Pages/CreateNewTasks";
+import Profile from "./Pages/Profile";
+import ForgotPassword from "./Pages/forgotpassword";
+import Otp from "./Pages/otp";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+    <Routes>
+        <Route element={<PageLayout />}>
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/newtasks" element={<CreateNewTasks />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/otp" element={<Otp />} />
+    </Routes>
+  </BrowserRouter> 
   );
 }
 
