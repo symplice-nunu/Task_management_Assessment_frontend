@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { loginAction } from '../redux/actions/authActions';
 
 export default function Login() {
@@ -10,6 +10,7 @@ export default function Login() {
         loading: false,
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleLogin = () => {
         setData({ ...data, loading: true });
@@ -17,7 +18,7 @@ export default function Login() {
             phone: data.phone,
             password: data.password,
         }
-        dispatch(loginAction(payload))
+        dispatch(loginAction(payload, navigate));
         setData({ ...data, loading: false });
     }
   return (

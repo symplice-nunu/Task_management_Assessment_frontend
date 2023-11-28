@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdKeyboardArrowDown, MdExitToApp } from 'react-icons/md';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/slices/authSlices';
+import { useNavigate } from 'react-router-dom';
 
 const optionsWithIcons = [
 //   { label: 'Change Password', icon: <MdLock /> },
@@ -11,6 +14,8 @@ const UserDetailsDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -44,7 +49,10 @@ const UserDetailsDropdown = () => {
           {optionsWithIcons.map((option) => (
             <div
               key={option.label}
-              onClick={() => handleOptionClick(option.label)}
+              onClick={() => {
+                dispatch(logout())
+                navigate('/');
+            }}
               className="flex items-center py-2 px-4 cursor-pointer hover:bg-gray-200"
             >
               <span className="mr-2 text-[20px] text-teal-500">{option.icon}</span>

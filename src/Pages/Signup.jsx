@@ -18,7 +18,7 @@ export default function Signup() {
             password: data.password,
             phone: data.phone,
         }
-
+        console.log(payload);
         dispatch(signupAction(payload));
         setData({ ...data, loading: false });
     }
