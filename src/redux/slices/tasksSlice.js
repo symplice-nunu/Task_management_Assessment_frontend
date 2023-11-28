@@ -10,13 +10,13 @@ const tasksSlice = createSlice({
     name: 'tasks',
     initialState,
     reducers: {
-        getTasks: (state, { payload }) => {
-            state.tasts = payload.tasks;
+        getTasksReducer: (state, { payload }) => {
+            state.tasts = payload.results;
             state.nextLink = payload.next;
             state.prevLink = payload.previous;
         },
     }
 });
 
-export const { getTasks } = tasksSlice.actions;
+export const { getTasksReducer } = tasksSlice.actions;
 export default tasksSlice.reducer;

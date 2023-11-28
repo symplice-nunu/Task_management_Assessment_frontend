@@ -4,9 +4,12 @@ import { BiLogOutCircle } from 'react-icons/bi'
 import { SidebarData } from '../Data/SidebarData'
 import { Link, useLocation } from 'react-router-dom'
 import SSP_7251 from '../Assets/images/SSP_7251.jpeg'
+import { useSelector } from 'react-redux'
 export default function Sidebar() {
+    const { userInfo } = useSelector((state) => state.auth);
     const location = useLocation();
     const active = location.pathname
+    
   return (
     <div className='bg-[#1c2537] top-0 z-10 left-0 text-[#e3e4e6] h-screen w-[250px] px-3 pt-10 font-quicksand relative'>
        <div>
@@ -38,7 +41,7 @@ export default function Sidebar() {
             </div>
             <div className='flex gap-8 mt-5'>
                 <div>
-                    <div>Noella</div>
+                    <div>{userInfo?.name}</div>
                 </div>
                 <div><BiLogOutCircle className='text-[25px]' /></div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUsers } from 'react-icons/fa';
 import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
@@ -12,6 +12,8 @@ import DeleteModal from '../Components/DeleteModal';
 import { GoTasklist } from "react-icons/go";
 import NewTasks from '../Components/NewTasks';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTasks } from '../redux/actions/tasksAction';
 export default function Tasks() {
   const itemsPerPage = 16;
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +23,14 @@ export default function Tasks() {
   const currentUsers = TasksData.slice(indexOfFirstItem, indexOfLastItem);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { tasts } = useSelector(state => state.tasks);
 
+  
+  useEffect(() => {
+    dispatch(getTasks());
+  }, [])
+  
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -126,13 +135,13 @@ export default function Tasks() {
               <th>Task Name</th>
               <th className=''>Start Date</th>
               <th className=''>End Date</th>
-              <th>Assignees</th>
-              <th className=''>Projects</th>
+              <th>Assignee</th>
+              <th className=''>Project Name</th>
               <th className=''>Priority</th>
               <th className='text-center'>Actions</th>
             </tr>
           </thead>
-          {currentUsers.map((item, index) => (
+          {tasts.map((item, index) => (
             <tbody
               key={index}
               className={`${index % 2 !== 0 ? 'bg-white' : null} font-quicksand`}
@@ -142,8 +151,8 @@ export default function Tasks() {
                 <td className='py-1 pl-1'>{item.name}</td>
                 <td className='py-1 pl-1'>{item.startDate}</td>
                 <td className='py-1 pl-1'>{item.endDate}</td>
-                <td className='py-1 pl-1 '>{item.assignees}</td>
-                <td className='py-1 pl-1 '>{item.projects}</td>
+                <td className='py-1 pl-1 '>{item.assignee[0]?.name}</td>
+                <td className='py-1 pl-1 '>{item.projectName}</td>
                 <td className='py-1 pl-1'>{item.priority}</td>
                 <td
                   className='py-1 pl-1'
